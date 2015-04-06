@@ -2,21 +2,19 @@ package Lib
 
 import (
 	"flag"
+	"github.com/HostsSitter/Enum"
 )
 
 type flags struct {
-	Ok   *bool
-	Id   *int
-	Port *string
+	Command  *string
+	SourceId *int
 }
 
 var Flags flags
 
 func init() {
-	Flags.Ok = flag.Bool("ok", false, "is ok")
-	Flags.Id = flag.Int("id", 0, "id")
-	Flags.Port = flag.String("port", ":8080", "http listen port")
+	Flags.Command = flag.String("c", Enum.FLAGS_COMMAND_UPDATE, "The Command: update; backup; recovery;")
+	Flags.SourceId = flag.Int("sid", Enum.FLAGS_SOURCE_ENUM_360kb, "The SourceId: 1 360kb")
 
 	flag.Parse()
-
 }

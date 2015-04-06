@@ -10,7 +10,8 @@ import (
 	"regexp"
 )
 
-func ParseUrl(url string) bool {
+func ParseUrl() bool {
+	url := Models.Source.UpdateUrl
 	ret, err := http.Get(url)
 	if err != nil {
 		log.Println(url)
