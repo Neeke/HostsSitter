@@ -17,7 +17,7 @@ package Enums
 
 const APP_NAME = "HostsSitter"
 
-const APP_VERSION = "0.5.0"
+const APP_VERSION = "0.1.0"
 
 const APP_USAGE = "The Hosts's Sitter"
 
