@@ -13,7 +13,13 @@
   | Author: Neeke.Gao  <neeke@php.net>                                   |
   +----------------------------------------------------------------------+
 */
-package Enum
+package Enums
+
+const APP_NAME = "HostsSitter"
+
+const APP_VERSION = "0.5.0"
+
+const APP_USAGE = "The Hosts's Sitter"
 
 const HOST_PATH_LINUX = "/etc/hosts"
 const HOST_PATH_WINDOWS = "C:\\Windows\\system32\\drivers\\etc\\hosts"

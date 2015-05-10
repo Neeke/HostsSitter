@@ -16,27 +16,25 @@
 package Core
 
 import (
+	"GoCrab/GoCrab/Cli"
 	"fmt"
-	"github.com/HostsSitter/Enum"
+	//"github.com/HostsSitter/Enums"
 	"github.com/HostsSitter/Lib"
 	"github.com/HostsSitter/Models"
 )
 
 func Run() bool {
-	if *Lib.Flags.SourceId == Enum.FLAGS_SOURCE_ENUM_360kb {
-		Models.Source = Models.Source360
-	}
+	//if *Lib.Flags.SourceId == Enums.FLAGS_SOURCE_ENUM_360kb {
+	Models.Source = Models.Source360
+	//}
 
-	if *Lib.Flags.Command == Enum.FLAGS_COMMAND_UPDATE {
-		return update()
-	}
-
-	return true
+	return update()
 }
 
 func update() bool {
 	Lib.ParseUrl()
-	fmt.Println("update ok")
+	Lib.UpdateHosts()
+	Cli.Info("update is ok")
 	return true
 }
 

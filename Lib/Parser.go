@@ -16,14 +16,17 @@
 package Lib
 
 import (
-	"fmt"
-	"github.com/HostsSitter/Enum"
+	"GoCrab/GoCrab/Cli"
+	"github.com/HostsSitter/Enums"
 	"github.com/HostsSitter/Models"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"regexp"
 )
+
+var getNewHosts string
 
 func ParseUrl() bool {
 	url := Models.Source.UpdateUrl
@@ -48,16 +51,37 @@ func ParseUrl() bool {
 	}
 
 	reg := regexp.MustCompile(Models.Source.RawPreStr)
-	newRawHosts = reg.ReplaceAllString(newRawHosts, Enum.HOST_PRE_STR)
+	newRawHosts = reg.ReplaceAllString(newRawHosts, Enums.HOST_PRE_STR)
 
 	reg = regexp.MustCompile(Models.Source.RawPostStr)
-	newHosts := reg.ReplaceAllString(newRawHosts, Enum.HOST_POST_STR)
+	newHosts := reg.ReplaceAllString(newRawHosts, Enums.HOST_POST_STR)
 
-	fmt.Println(newHosts)
+	getNewHosts = newHosts
 
 	return true
 }
 
-func ParseHosts() bool {
+func UpdateHosts() bool {
+	f, err := os.Open(Models.Hosts.HostPath)
+	if err != nil {
+		return false
+	}
+	defer f.Close()
+
+	byteHosts, _ := ioutil.ReadAll(f)
+	stringHosts := string(byteHosts)
+
+	part := regexp.MustCompile(Enums.HOST_PRE_STR + `([\w\W]*)` + Enums.HOST_POST_STR)
+	newStringHosts := part.ReplaceAllString(stringHosts, "")
+
+	newStringHosts = newStringHosts + getNewHosts
+
+	newByteHosts := []byte(newStringHosts)
+	err = ioutil.WriteFile(Models.Hosts.HostPath, newByteHosts, 0777)
+	if err != nil {
+		Cli.Error("ParseHosts is error, ", err)
+		return false
+	}
+
 	return true
 }

@@ -16,7 +16,7 @@
 package Models
 
 import (
-	"github.com/HostsSitter/Enum"
+	"github.com/HostsSitter/Enums"
 	"runtime"
 )
 
@@ -32,11 +32,11 @@ var Hosts hosts
 func init() {
 	Hosts.OS = runtime.GOOS
 	if Hosts.OS == "windows" {
-		Hosts.HostPath = Enum.HOST_PATH_LINUX
+		Hosts.HostPath = Enums.HOST_PATH_WINDOWS
 	} else {
-		Hosts.HostPath = Enum.HOST_PATH_WINDOWS
+		Hosts.HostPath = Enums.HOST_PATH_LINUX
 	}
 
-	Hosts.HostPreStr = Enum.HOST_PRE_STR
-	Hosts.HostPostStr = Enum.HOST_POST_STR
+	Hosts.HostPreStr = Enums.HOST_PRE_STR
+	Hosts.HostPostStr = Enums.HOST_POST_STR
 }

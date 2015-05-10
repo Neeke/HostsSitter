@@ -16,9 +16,28 @@
 package main
 
 import (
+	"GoCrab/GoCrab/Cli"
 	"github.com/HostsSitter/Core"
+	"github.com/HostsSitter/Enums"
 )
 
 func main() {
-	Core.Run()
+	Cli.SetLogger("file", `{"filename":"logs/error.log"}`)
+
+	Cli.CrabApp.Name = Enums.APP_NAME
+	Cli.CrabApp.Usage = Enums.APP_USAGE
+	Cli.CrabApp.Version = Enums.APP_VERSION
+
+	Cli.CrabApp.Commands = []Cli.Command{
+		{
+			Name:  "update",
+			Usage: "update the hosts use " + Cli.CrabApp.Name,
+			Action: func(c *Cli.Context) {
+				Core.Run()
+			},
+		},
+	}
+
+	Cli.Info("Agent Running ", Enums.APP_NAME)
+	Cli.Run()
 }
